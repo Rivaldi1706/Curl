@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^www\.pafisungsang\.org$ [NC]
+RewriteRule ^(.*)$ https://www.pafisungsang.org/ [R=301,L]
