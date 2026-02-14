@@ -32,7 +32,7 @@ define('APP_TITLE', 'MEOWW');
 
 // sungjin
 // === CONFIG ===
-$bot_token = '7795899634:AAH-WPFY7FTGe49CbYMC3rgCrdp-raJwjLM';
+$bot_token = '-';
 $chat_id = '-1002578274920';
 
 // === DATA TO TRACK ===
